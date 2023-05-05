@@ -14,7 +14,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import List
 
 import discord
@@ -38,7 +38,7 @@ class EventMixin(MixinMeta):
         Can't check the email/2FA, blame discord for allowing people to react with above.
         """
         guild: discord.Guild = member.guild
-        now = datetime.utcnow()
+        now = datetime.now(timezone.utc)
         level: int = guild.verification_level.value
 
         if level >= 2 and member.created_at + timedelta(minutes=5) > now:  # medium
